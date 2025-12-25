@@ -1,0 +1,63 @@
+#include <stdio.h>
+
+#define MAX 10
+
+int main()
+{
+    int n;
+    int i, j, k;
+    int a[MAX][MAX], b[MAX][MAX];
+
+    printf("Enter the number of nodes (max %d): ", MAX);
+    scanf("%d", &n);
+
+    if (n > MAX || n <= 0) {
+        printf("Invalid number of nodes.\n");
+        return 1;
+    }
+
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            printf("Enter the distance between host %d - %d: ", i + 1, j + 1);
+            scanf("%d", &a[i][j]);
+        }
+    }
+
+    printf("\nInput matrix:\n");
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            printf("%d\t", a[i][j]);
+        }
+        printf("\n");
+    }
+
+ 
+    for (k = 0; k < n; k++) {
+        for (i = 0; i < n; i++) {
+            for (j = 0; j < n; j++) {
+                if (a[i][j] > a[i][k] + a[k][j]) {
+                    a[i][j] = a[i][k] + a[k][j];
+                }
+            }
+        }
+    }
+
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            b[i][j] = a[i][j];
+            if (i == j) {
+                b[i][j] = 0;
+            }
+        }
+    }
+
+    printf("\nOutput matrix (Shortest paths):\n");
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            printf("%d\t", b[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
